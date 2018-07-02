@@ -83,7 +83,7 @@ func NewConsumerFromClient(client *Client, groupID string, topics []string) (*Co
 		dying: make(chan none),
 		dead:  make(chan none),
 
-		messages:      make(chan *sarama.ConsumerMessage),
+		messages:      make(chan *sarama.ConsumerMessage, client.config.ChannelBufferSize),
 		errors:        make(chan error, client.config.ChannelBufferSize),
 		partitions:    make(chan PartitionConsumer, 1),
 		notifications: make(chan *Notification),
